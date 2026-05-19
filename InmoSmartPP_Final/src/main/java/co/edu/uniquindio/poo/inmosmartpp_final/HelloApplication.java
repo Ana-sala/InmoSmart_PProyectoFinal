@@ -18,6 +18,6 @@ public class HelloApplication extends Application {
 
         hola desde emi
 
-                hola otra emi
+                hola otra JUAN
     }
 }
