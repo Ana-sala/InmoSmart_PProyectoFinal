@@ -17,5 +17,7 @@ public class HelloApplication extends Application {
         stage.show();
 
         hola desde emi
+
+                hola otra emi
     }
 }
