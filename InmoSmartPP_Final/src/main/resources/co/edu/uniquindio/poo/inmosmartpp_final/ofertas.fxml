@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<AnchorPane prefWidth="750" prefHeight="580" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.poo.inmosmartpp_final.viewController.OfertaViewController">
+    <VBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10" spacing="10">
+        <padding><Insets top="10" left="10" right="10" bottom="10"/></padding>
+        <Label text="Gestión de Ofertas" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+        <GridPane hgap="10" vgap="8">
+            <Label text="Código oferta:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtCodigo" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="200"/>
+            <Label text="Comprador:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbComprador" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="200"/>
+            <Label text="Inmueble:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbInmueble" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="200"/>
+            <Label text="Valor oferta:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtValor" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <Label text="Tipo operación:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbTipoOp" GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="200"/>
+        </GridPane>
+        <HBox spacing="10">
+            <Button text="Realizar oferta" onAction="#onRealizarOferta"/>
+            <Button text="Aceptar oferta" onAction="#onAceptar"/>
+            <Button text="Rechazar oferta" onAction="#onRechazar"/>
+            <Button text="Limpiar" onAction="#onLimpiar"/>
+            <Button text="← Volver" onAction="#onVolver"/>
+        </HBox>
+        <TableView fx:id="tblOfertas" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colCodigo" text="Código" prefWidth="100"/>
+                <TableColumn fx:id="colComprador" text="Comprador" prefWidth="130"/>
+                <TableColumn fx:id="colInmueble" text="Inmueble" prefWidth="100"/>
+                <TableColumn fx:id="colValor" text="Valor" prefWidth="120"/>
+                <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+            </columns>
+        </TableView>
+    </VBox>
+</AnchorPane>

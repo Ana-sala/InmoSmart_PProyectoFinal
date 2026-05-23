@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<AnchorPane prefWidth="800" prefHeight="500" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.poo.inmosmartpp_final.viewController.TransaccionViewController">
+    <VBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10" spacing="10">
+        <padding><Insets top="10" left="10" right="10" bottom="10"/></padding>
+        <Label text="Transacciones" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+        <Label fx:id="lblCiudad" text="Ciudad con mayor demanda: -"/>
+        <HBox spacing="10">
+            <Button text="Actualizar" onAction="#onActualizar"/>
+            <Button text="← Volver" onAction="#onVolver"/>
+        </HBox>
+        <TableView fx:id="tblTransacciones" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colCodigo" text="Código" prefWidth="90"/>
+                <TableColumn fx:id="colComprador" text="Comprador" prefWidth="120"/>
+                <TableColumn fx:id="colVendedor" text="Vendedor" prefWidth="120"/>
+                <TableColumn fx:id="colInmueble" text="Inmueble" prefWidth="100"/>
+                <TableColumn fx:id="colValor" text="Valor final" prefWidth="110"/>
+                <TableColumn fx:id="colTipo" text="Operación" prefWidth="100"/>
+            </columns>
+        </TableView>
+    </VBox>
+</AnchorPane>
