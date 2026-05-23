@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<VBox alignment="CENTER" spacing="15" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uniquindio.poo.inmosmartpp_final.viewController.PrimaryViewController">
+    <padding><Insets top="40" bottom="40" left="60" right="60"/></padding>
+    <Label text="InmoSmart" style="-fx-font-size: 28; -fx-font-weight: bold;"/>
+    <Label text="Plataforma de Inmobiliaria Digital" style="-fx-font-size: 14;"/>
+    <Separator/>
+    <Button text="Gestión de Usuarios" onAction="#onIrUsuarios" prefWidth="250" prefHeight="40"/>
+    <Button text="Gestión de Inmuebles" onAction="#onIrInmuebles" prefWidth="250" prefHeight="40"/>
+    <Button text="Realizar Ofertas" onAction="#onIrOfertas" prefWidth="250" prefHeight="40"/>
+    <Button text="Transacciones" onAction="#onIrTransacciones" prefWidth="250" prefHeight="40"/>
+    <Button text="Reportes" onAction="#onIrReportes" prefWidth="250" prefHeight="40"/>
+</VBox>

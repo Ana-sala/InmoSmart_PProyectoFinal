@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<AnchorPane prefWidth="650" prefHeight="500" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.poo.inmosmartpp_final.viewController.ReporteViewController">
+    <VBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10" spacing="12">
+        <padding><Insets top="10" left="10" right="10" bottom="10"/></padding>
+        <Label text="Reportes del Sistema" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+        <HBox spacing="10" wrap="true">
+            <Button text="Inmuebles vendidos" onAction="#onInmueblesMasVendidos"/>
+            <Button text="Compradores activos" onAction="#onCompradoresMasActivos"/>
+            <Button text="Vendedores top" onAction="#onVendedoresMasPropiedades"/>
+            <Button text="Ciudad con mayor demanda" onAction="#onCiudadMayorDemanda"/>
+        </HBox>
+        <TextArea fx:id="txtReporte" VBox.vgrow="ALWAYS" editable="false" wrapText="true"/>
+        <Button text="← Volver" onAction="#onVolver"/>
+    </VBox>
+</AnchorPane>

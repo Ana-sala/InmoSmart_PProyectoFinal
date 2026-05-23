@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<AnchorPane prefWidth="700" prefHeight="560" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.poo.inmosmartpp_final.viewController.UsuarioViewController">
+    <VBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10" spacing="10">
+        <padding><Insets top="10" left="10" right="10" bottom="10"/></padding>
+        <Label text="Gestión de Usuarios" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+        <GridPane hgap="10" vgap="8">
+            <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtId" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="200"/>
+            <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtNombre" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="Identificación:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtIdentificacion" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="Teléfono:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtTelefono" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <Label text="Correo:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtCorreo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            <Label text="Tipo:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cmbTipo" GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="200"/>
+        </GridPane>
+        <HBox spacing="10">
+            <Button text="Registrar" onAction="#onRegistrar"/>
+            <Button text="Eliminar" onAction="#onEliminar"/>
+            <Button text="Limpiar" onAction="#onLimpiar"/>
+            <Button text="&lt;- Volver" onAction="#onVolver"/>
+        </HBox>
+        <TableView fx:id="tblUsuarios" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
+                <TableColumn fx:id="colIdentificacion" text="Identificación" prefWidth="120"/>
+                <TableColumn fx:id="colTipo" text="Tipo" prefWidth="100"/>
+                <TableColumn fx:id="colRango" text="Rango" prefWidth="150"/>
+            </columns>
+        </TableView>
+    </VBox>
+</AnchorPane>
