@@ -1,39 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
-<AnchorPane prefWidth="700" prefHeight="560" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="co.edu.uniquindio.poo.inmosmartpp_final.viewController.UsuarioViewController">
-    <VBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10" spacing="10">
-        <padding><Insets top="10" left="10" right="10" bottom="10"/></padding>
-        <Label text="Gestión de Usuarios" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+<AnchorPane prefHeight="560" prefWidth="700" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.inmosmartpp_final.viewController.UsuarioViewController">
+    <VBox spacing="10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
+        <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
+        <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="Gestión de Usuarios" textFill="#2e159a" />
         <GridPane hgap="10" vgap="8">
-            <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtId" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="200"/>
-            <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtNombre" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-            <Label text="Identificación:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtIdentificacion" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-            <Label text="Teléfono:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtTelefono" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-            <Label text="Correo:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtCorreo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-            <Label text="Tipo:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-            <ComboBox fx:id="cmbTipo" GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="200"/>
+            <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="txtId" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <cursor>
+               <Cursor fx:constant="TEXT" />
+            </cursor></TextField>
+            <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <cursor>
+               <Cursor fx:constant="DEFAULT" />
+            </cursor></Label>
+            <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <cursor>
+               <Cursor fx:constant="TEXT" />
+            </cursor></TextField>
+            <Label text="Identificación:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="txtIdentificacion" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <cursor>
+               <Cursor fx:constant="TEXT" />
+            </cursor></TextField>
+            <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="txtTelefono" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <cursor>
+               <Cursor fx:constant="TEXT" />
+            </cursor></TextField>
+            <Label text="Correo:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <TextField fx:id="txtCorreo" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <cursor>
+               <Cursor fx:constant="TEXT" />
+            </cursor></TextField>
+            <Label text="Tipo:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+            <ComboBox fx:id="cmbTipo" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
         </GridPane>
         <HBox spacing="10">
-            <Button text="Registrar" onAction="#onRegistrar"/>
-            <Button text="Eliminar" onAction="#onEliminar"/>
-            <Button text="Limpiar" onAction="#onLimpiar"/>
-            <Button text="&lt;- Volver" onAction="#onVolver"/>
+            <Button onAction="#onRegistrar" text="Registrar" />
+            <Button onAction="#onEliminar" text="Eliminar" />
+            <Button onAction="#onLimpiar" text="Limpiar" />
+            <Button onAction="#onVolver" text="&lt;- Volver" />
         </HBox>
         <TableView fx:id="tblUsuarios" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
-                <TableColumn fx:id="colIdentificacion" text="Identificación" prefWidth="120"/>
-                <TableColumn fx:id="colTipo" text="Tipo" prefWidth="100"/>
-                <TableColumn fx:id="colRango" text="Rango" prefWidth="150"/>
+                <TableColumn fx:id="colNombre" prefWidth="150" text="Nombre" />
+                <TableColumn fx:id="colIdentificacion" prefWidth="120" text="Identificación" />
+                <TableColumn fx:id="colTipo" prefWidth="100" text="Tipo" />
+                <TableColumn fx:id="colRango" prefWidth="150" text="Rango" />
             </columns>
         </TableView>
     </VBox>
