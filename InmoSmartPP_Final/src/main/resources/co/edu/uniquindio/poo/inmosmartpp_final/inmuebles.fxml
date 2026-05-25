@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
-<AnchorPane prefWidth="750" prefHeight="600" xmlns="http://javafx.com/javafx/21"
+<AnchorPane prefWidth="750" prefHeight="650" xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="co.edu.uniquindio.poo.inmosmartpp_final.viewController.InmuebleViewController">
     <VBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10" spacing="10">
@@ -29,8 +29,30 @@
         <HBox spacing="10">
             <Button text="Publicar" onAction="#onPublicar"/>
             <Button text="Limpiar" onAction="#onLimpiar"/>
-            <Button text="← Volver" onAction="#onVolver"/>
+            <Button text="&lt;- Volver" onAction="#onVolver"/>
         </HBox>
+
+        <!-- SECCION DE BUSQUEDA - AGREGAR AQUI -->
+        <Separator/>
+        <Label text="Buscar Inmuebles" style="-fx-font-weight: bold;"/>
+        <GridPane hgap="10" vgap="8">
+            <Label text="Ciudad:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtBuscarCiudad" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="150"/>
+            <Label text="Tipo:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+            <ComboBox fx:id="cmbBuscarTipo" GridPane.rowIndex="0" GridPane.columnIndex="3" prefWidth="130"/>
+            <Label text="Precio mín:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtPrecioMin" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="150"/>
+            <Label text="Precio máx:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+            <TextField fx:id="txtPrecioMax" GridPane.rowIndex="1" GridPane.columnIndex="3" prefWidth="130"/>
+            <Label text="Área mín:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtAreaMin" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="150"/>
+        </GridPane>
+        <HBox spacing="10">
+            <Button text="Buscar" onAction="#onBuscar"/>
+            <Button text="Mostrar todos" onAction="#onMostrarTodos"/>
+        </HBox>
+        <!-- FIN SECCION DE BUSQUEDA -->
+
         <TableView fx:id="tblInmuebles" VBox.vgrow="ALWAYS">
             <columns>
                 <TableColumn fx:id="colCodigo" text="Código" prefWidth="100"/>
