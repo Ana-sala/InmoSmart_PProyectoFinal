@@ -68,6 +68,12 @@ public class OfertaViewController {
         ofertaController.aceptarOferta(ofertaSeleccionada.getCodigoOferta(), cmbTipoOp.getValue());
         listaOfertas.setAll(ofertaController.getOfertas());
         mostrarAlerta("Éxito", "Oferta aceptada y transacción registrada.");
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Alerta del Sistema");
+        alerta.setHeaderText("Oferta aceptada");
+        alerta.setContentText("Notificación: La oferta " + ofertaSeleccionada.getCodigoOferta() +
+                " fue aceptada. El inmueble ha cambiado de estado.");
+        alerta.show();
     }
 
     @FXML void onRechazar() {
@@ -89,4 +95,5 @@ public class OfertaViewController {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle(titulo); a.setHeaderText(null); a.setContentText(msg); a.show();
     }
+
 }
