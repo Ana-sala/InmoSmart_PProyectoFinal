@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.util.List;
+
 public class InmuebleViewController {
     MainApp app;
     InmuebleController inmuebleController;
@@ -67,5 +69,21 @@ public class InmuebleViewController {
     private void mostrarAlerta(String titulo, String msg) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle(titulo); a.setHeaderText(null); a.setContentText(msg); a.show();
+    }
+
+    @FXML private TextField txtBuscarCiudad, txtPrecioMin, txtPrecioMax, txtAreaMin;
+    @FXML private ComboBox<TipoInmueble> cmbBuscarTipo;
+
+    @FXML void onBuscar() {
+        try {
+            double precioMin = txtPrecioMin.getText().isEmpty() ? 0 : Double.parseDouble(txtPrecioMin.getText());
+            double precioMax = txtPrecioMax.getText().isEmpty() ? Double.MAX_VALUE : Double.parseDouble(txtPrecioMax.getText());
+            double areaMin = txtAreaMin.getText().isEmpty() ? 0 : Double.parseDouble(txtAreaMin.getText());
+            List<Inmueble> resultado = inmuebleController.buscarInmuebles(
+                    txtBuscarCiudad.getText(), cmbBuscarTipo.getValue(), precioMin, precioMax, areaMin);
+            listaInmuebles.setAll(resultado);
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Verifica los campos de búsqueda.");
+        }
     }
 }
