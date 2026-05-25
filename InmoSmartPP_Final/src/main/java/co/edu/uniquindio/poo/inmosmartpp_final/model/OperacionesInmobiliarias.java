@@ -56,4 +56,3 @@ public interface OperacionesInmobiliarias {
      * @return reporte en formato texto
      */
     String generarReporte();
-}
