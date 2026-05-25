@@ -34,16 +34,28 @@ public class Comprador extends Usuario {
      * @param telefono Número de teléfono
      * @param correo Correo electrónico
      */
-    public Comprador(String id, String nombre, String identificacion,
-                     String telefono, String correo) {
+    public Comprador(String id,
+                     String nombre,
+                     String identificacion,
+                     String telefono,
+                     String correo) {
 
         // Llamado al constructor de la clase padre Usuario
-        super(id, nombre, identificacion, telefono, correo, TipoUsuario.COMPRADOR);
+        super(id,
+                nombre,
+                identificacion,
+                telefono,
+                correo,
+                TipoUsuario.COMPRADOR);
 
         // Inicialización de listas
         this.ofertas = new ArrayList<>();
         this.transacciones = new ArrayList<>();
     }
+
+    // =====================================================
+    // MÉTODOS
+    // =====================================================
 
     /**
      * Calcula el beneficio total obtenido por el comprador.
@@ -57,10 +69,37 @@ public class Comprador extends Usuario {
     public double calcularBeneficio() {
 
         return transacciones.stream()
-                .mapToDouble(t -> t.getInmueble().getPrecio()
-                        - t.getValorFinal())
+
+                .mapToDouble(t ->
+                        t.getInmueble().getPrecio()
+                                - t.getValorFinal())
+
                 .sum();
     }
+
+    /**
+     * Agrega una oferta a la lista de ofertas.
+     *
+     * @param oferta oferta a agregar
+     */
+    public void agregarOferta(Oferta oferta) {
+
+        ofertas.add(oferta);
+    }
+
+    /**
+     * Agrega una transacción a la lista de transacciones.
+     *
+     * @param transaccion transacción a agregar
+     */
+    public void agregarTransaccion(Transaccion transaccion) {
+
+        transacciones.add(transaccion);
+    }
+
+    // =====================================================
+    // GETTERS Y SETTERS
+    // =====================================================
 
     /**
      * Obtiene la lista de ofertas del comprador.
@@ -72,7 +111,7 @@ public class Comprador extends Usuario {
     }
 
     /**
-     * Modifica la lista de ofertas del comprador.
+     * Modifica la lista de ofertas.
      *
      * @param ofertas nueva lista de ofertas
      */
@@ -81,7 +120,7 @@ public class Comprador extends Usuario {
     }
 
     /**
-     * Obtiene la lista de transacciones del comprador.
+     * Obtiene la lista de transacciones.
      *
      * @return lista de transacciones
      */
@@ -90,29 +129,11 @@ public class Comprador extends Usuario {
     }
 
     /**
-     * Modifica la lista de transacciones del comprador.
+     * Modifica la lista de transacciones.
      *
      * @param transacciones nueva lista de transacciones
      */
     public void setTransacciones(List<Transaccion> transacciones) {
         this.transacciones = transacciones;
-    }
-
-    /**
-     * Agrega una oferta a la lista de ofertas.
-     *
-     * @param oferta oferta a agregar
-     */
-    public void agregarOferta(Oferta oferta) {
-        ofertas.add(oferta);
-    }
-
-    /**
-     * Agrega una transacción a la lista de transacciones.
-     *
-     * @param transaccion transacción a agregar
-     */
-    public void agregarTransaccion(Transaccion transaccion) {
-        transacciones.add(transaccion);
     }
 }
