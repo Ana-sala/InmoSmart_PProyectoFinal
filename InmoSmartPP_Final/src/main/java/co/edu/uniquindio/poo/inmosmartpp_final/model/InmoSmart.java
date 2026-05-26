@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  *
  * @author Maria Camila
  */
-public class InmoSmart {
+public class InmoSmart implements OperacionesInmobiliarias{
 
     /**
      * Nombre del sistema inmobiliario.
@@ -448,5 +448,21 @@ public class InmoSmart {
      */
     public List<Transaccion> getTransacciones() {
         return transacciones;
+    }
+    @Override
+    public boolean comprarInmueble(String codigoOferta, TipoOperacion tipoOp) {
+        return responderOferta(codigoOferta, true, tipoOp);
+    }
+
+    @Override
+    public String generarReporte() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Reporte InmoSmart ===\n");
+        sb.append("Total usuarios: ").append(usuarios.size()).append("\n");
+        sb.append("Total inmuebles: ").append(inmuebles.size()).append("\n");
+        sb.append("Total ofertas: ").append(ofertas.size()).append("\n");
+        sb.append("Total transacciones: ").append(transacciones.size()).append("\n");
+        sb.append("Ciudad con mayor demanda: ").append(ciudadConMayorDemanda()).append("\n");
+        return sb.toString();
     }
 }
