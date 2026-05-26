@@ -79,13 +79,15 @@ public class InmoSmart implements OperacionesInmobiliarias{
      */
     public boolean registrarUsuario(Usuario usuario) {
 
-        boolean existe = usuarios.stream()
-                .anyMatch(u -> u.getIdentificacion()
-                        .equals(usuario.getIdentificacion()));
+        // Verifica que no exista un usuario
+        // con la misma identificación
 
-        if (!existe) {
-            usuarios.add(usuario);
-            return true;
+        boolean existe = usuarios.stream().anyMatch( //pregunta ¿si existe algun elemento que cumpla esta condicion
+                u -> u.getIdentificacion().equals(usuario.getIdentificacion()));
+
+        if (!existe) { // Si el usuario no existe en la lista
+            usuarios.add(usuario); // Agrega el nuevo usuario
+            return true; // Retorna true el usuario ya existe
         }
 
         return false;
@@ -99,8 +101,9 @@ public class InmoSmart implements OperacionesInmobiliarias{
      */
     public boolean eliminarUsuario(String identificacion) {
 
-        return usuarios.removeIf(u ->
-                u.getIdentificacion().equals(identificacion));
+        // Recorre la lista de usuarios y elimina
+        return usuarios.removeIf(// elimina autoamticamente los que cumpla la condicion
+                u -> u.getIdentificacion().equals(identificacion));
     }
 
     /**
@@ -111,10 +114,15 @@ public class InmoSmart implements OperacionesInmobiliarias{
      */
     public Usuario buscarUsuario(String identificacion) {
 
+        // Recorre la lista de usuarios
         return usuarios.stream()
+                // Filtra el usuario cuya identificación
+                // sea igual a la recibida por parámetro
                 .filter(u -> u.getIdentificacion().equals(identificacion))
-                .findFirst()
-                .orElse(null);
+                .findFirst()  // Obtiene el primer usuario encontrado
+
+                .orElse(null);  // Retorna el usuario encontrado,
+                                      // o null si no existe
     }
 
     /**
@@ -125,9 +133,11 @@ public class InmoSmart implements OperacionesInmobiliarias{
     public List<Comprador> getCompradores() {
 
         return usuarios.stream()
+                // Filtra únicamente los usuarios
+                // que sean de tipo Comprador
                 .filter(u -> u instanceof Comprador)
-                .map(u -> (Comprador) u)
-                .collect(Collectors.toList());
+                .map(u -> (Comprador) u) // Convierte cada usuario a tipo Comprador
+                .collect(Collectors.toList());  // Guarda los compradores en una nueva lista
     }
 
     /**
@@ -138,9 +148,13 @@ public class InmoSmart implements OperacionesInmobiliarias{
     public List<Vendedor> getVendedores() {
 
         return usuarios.stream()
+                // Filtra únicamente los usuarios
+                // que sean de tipo Vendedor
                 .filter(u -> u instanceof Vendedor)
+
+                // Convierte cada usuario a tipo Vendedor
                 .map(u -> (Vendedor) u)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()); // Guarda los vendedores en una nueva lista
     }
 
     // =====================================================
@@ -164,25 +178,30 @@ public class InmoSmart implements OperacionesInmobiliarias{
         boolean existe = inmuebles.stream()
                 .anyMatch(i -> i.getCodigo().equals(inmueble.getCodigo()));
 
-        if (!existe) {
+        if (!existe) { // Si el inmueble no existe, se procede a publicarlo
 
-            inmuebles.add(inmueble);
+            inmuebles.add(inmueble);   // Agrega el inmueble a la lista general de inmuebles
 
+            // Agrega el inmueble a la lista de inmuebles del vendedor
             inmueble.getVendedor()
                     .getInmuebles()
                     .add(inmueble);
 
+            // Se le otorgan 10 puntos al vendedor por publicar
             inmueble.getVendedor()
                     .agregarPuntos(10);
 
+            // Genera un código para la publicación
             String codPub = "PUB-" + (publicaciones.size() + 1);
 
+            // Crea y agrega la nueva publicación a la lista
             publicaciones.add(
                     new Publicacion(codPub, descripcion, inmueble));
 
+            // Retorna true porque la publicación fue exitosa
             return true;
         }
-
+        // Retorna false porque el inmueble ya existía
         return false;
     }
 

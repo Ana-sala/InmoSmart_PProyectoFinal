@@ -68,13 +68,13 @@ public class Comprador extends Usuario {
     @Override
     public double calcularBeneficio() {
 
-        return transacciones.stream()
+        return transacciones.stream() // Recorre todas las transacciones
 
-                .mapToDouble(t ->
-                        t.getInmueble().getPrecio()
-                                - t.getValorFinal())
+                // Calcula el beneficio de cada transacción:
+                .mapToDouble(t ->  // Convierte la lista en un flujo de datos
+                        t.getInmueble().getPrecio() - t.getValorFinal()) // precio del inmueble - valor final de venta
 
-                .sum();
+                .sum(); // Suma todos los beneficios obtenidos
     }
 
     /**

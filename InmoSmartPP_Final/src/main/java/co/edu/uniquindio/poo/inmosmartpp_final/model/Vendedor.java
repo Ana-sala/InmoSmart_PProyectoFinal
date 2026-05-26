@@ -69,15 +69,17 @@ public class Vendedor extends Usuario {
     @Override
     public double calcularBeneficio() {
 
+        // Recorre la lista de inmuebles
         return inmuebles.stream()
 
-                .filter(i ->
-                        i.getEstado() == EstadoInmueble.VENDIDO
+                // Filtra únicamente los inmuebles
+                // que estén vendidos o arrendados
+                .filter(i -> i.getEstado() == EstadoInmueble.VENDIDO  || i.getEstado() == EstadoInmueble.ARRENDADO)
 
-                                || i.getEstado() == EstadoInmueble.ARRENDADO)
-
+                // Obtiene el precio de cada inmueble filtrado
                 .mapToDouble(Inmueble::getPrecio)
 
+                // Suma todos los precios
                 .sum();
     }
 

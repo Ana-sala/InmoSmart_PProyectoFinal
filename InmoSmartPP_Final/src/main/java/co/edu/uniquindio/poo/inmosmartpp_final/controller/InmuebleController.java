@@ -14,7 +14,9 @@ public class InmuebleController {
                                     String ciudad, double area, double precio,
                                     Vendedor vendedor, String descripcion) {
         if (codigo.isEmpty() || direccion.isEmpty() || ciudad.isEmpty()) return false;
-        if (precio <= 0 || area <= 0 || vendedor == null) return false;
+        if (precio <= 0) { return false; }
+        if (area <= 0) { return false; }
+        if (vendedor == null || tipo == null) return false;
         Inmueble inmueble = new Inmueble(codigo, tipo, direccion, ciudad, area, precio, vendedor);
         return inmoSmart.publicarInmueble(inmueble, descripcion);
     }
