@@ -22,10 +22,14 @@ public class InmuebleViewController {
     @FXML private ComboBox<TipoInmueble> cmbTipo;
     @FXML private ComboBox<Vendedor> cmbVendedor;
     @FXML private TableView<Inmueble> tblInmuebles;
-    @FXML private TableColumn<Inmueble, String> colCodigo, colTipo, colCiudad, colPrecio, colEstado;
+    @FXML private TableColumn<Inmueble, String> colCodigo, colTipo, colCiudad, colPrecio, colEstado, colArea;
+
+    @FXML private TextField txtBuscarCiudad, txtPrecioMin, txtPrecioMax, txtAreaMin;
+    @FXML private ComboBox<TipoInmueble> cmbBuscarTipo;
 
     @FXML void initialize() {
         cmbTipo.setItems(FXCollections.observableArrayList(TipoInmueble.values()));
+        cmbBuscarTipo.setItems(FXCollections.observableArrayList(TipoInmueble.values()));
     }
 
     public void setApp(MainApp app) {
@@ -36,26 +40,70 @@ public class InmuebleViewController {
     }
 
     private void initView() {
-        colCodigo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getCodigo()));
-        colTipo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTipo().toString()));
-        colCiudad.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getCiudad()));
-        colPrecio.setCellValueFactory(c -> new SimpleStringProperty("$" + c.getValue().getPrecio()));
-        colEstado.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getEstado().toString()));
+        colCodigo.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getCodigo()));
+        colTipo.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getTipo().toString()));
+        colCiudad.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getCiudad()));
+        colPrecio.setCellValueFactory(c -> new SimpleStringProperty(
+                String.format("$%,.0f", c.getValue().getPrecio())));
+        colArea.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getArea() + " m²"));
+        colEstado.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getEstado().toString()));
         tblInmuebles.setItems(listaInmuebles);
-        listaInmuebles.addAll(inmuebleController.getTodosInmuebles());
         cmbVendedor.setItems(FXCollections.observableArrayList(usuarioController.getVendedores()));
     }
 
     @FXML void onPublicar() {
         try {
+            String precioTexto = txtPrecio.getText().replace(".", "").replace(",", "");
+            String areaTexto = txtArea.getText().replace(".", "").replace(",", "");
+
             boolean ok = inmuebleController.publicarInmueble(
                     txtCodigo.getText(), cmbTipo.getValue(), txtDireccion.getText(),
-                    txtCiudad.getText(), Double.parseDouble(txtArea.getText()),
-                    Double.parseDouble(txtPrecio.getText()), cmbVendedor.getValue(),
+                    txtCiudad.getText(), Double.parseDouble(areaTexto),
+                    Double.parseDouble(precioTexto), cmbVendedor.getValue(),
                     txtDescripcion.getText());
-            if (ok) { listaInmuebles.setAll(inmuebleController.getTodosInmuebles()); limpiar(); mostrarAlerta("Éxito", "Inmueble publicado."); }
-            else mostrarAlerta("Error", "No se pudo publicar.");
-        } catch (Exception e) { mostrarAlerta("Error", "Verifica los campos numéricos."); }
+            if (ok) {
+                listaInmuebles.setAll(inmuebleController.getTodosInmuebles());
+                limpiar();
+                mostrarAlerta("Exito", "Inmueble publicado.");
+            } else {
+                mostrarAlerta("Error", "No se pudo publicar.");
+            }
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Verifica los campos numericos.");
+        }
+    }
+
+    @FXML void onBuscar() {
+        try {
+            String minTexto = txtPrecioMin.getText().replace(".", "").replace(",", "");
+            String maxTexto = txtPrecioMax.getText().replace(".", "").replace(",", "");
+            String areaTexto = txtAreaMin.getText().replace(".", "").replace(",", "");
+
+            double precioMin = minTexto.isEmpty() ? 0 : Double.parseDouble(minTexto);
+            double precioMax = maxTexto.isEmpty() ? Double.MAX_VALUE : Double.parseDouble(maxTexto);
+            double areaMin = areaTexto.isEmpty() ? 0 : Double.parseDouble(areaTexto);
+
+            List<Inmueble> resultado = inmuebleController.buscarInmuebles(
+                    txtBuscarCiudad.getText(), cmbBuscarTipo.getValue(), precioMin, precioMax, areaMin);
+            listaInmuebles.setAll(resultado);
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Verifica los campos de busqueda.");
+        }
+    }
+
+
+    @FXML void onMostrarTodos() {
+        listaInmuebles.setAll(inmuebleController.getTodosInmuebles());
+        txtBuscarCiudad.clear();
+        txtPrecioMin.clear();
+        txtPrecioMax.clear();
+        txtAreaMin.clear();
+        cmbBuscarTipo.setValue(null);
     }
 
     @FXML void onLimpiar() { limpiar(); }
@@ -69,21 +117,5 @@ public class InmuebleViewController {
     private void mostrarAlerta(String titulo, String msg) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle(titulo); a.setHeaderText(null); a.setContentText(msg); a.show();
-    }
-
-    @FXML private TextField txtBuscarCiudad, txtPrecioMin, txtPrecioMax, txtAreaMin;
-    @FXML private ComboBox<TipoInmueble> cmbBuscarTipo;
-
-    @FXML void onBuscar() {
-        try {
-            double precioMin = txtPrecioMin.getText().isEmpty() ? 0 : Double.parseDouble(txtPrecioMin.getText());
-            double precioMax = txtPrecioMax.getText().isEmpty() ? Double.MAX_VALUE : Double.parseDouble(txtPrecioMax.getText());
-            double areaMin = txtAreaMin.getText().isEmpty() ? 0 : Double.parseDouble(txtAreaMin.getText());
-            List<Inmueble> resultado = inmuebleController.buscarInmuebles(
-                    txtBuscarCiudad.getText(), cmbBuscarTipo.getValue(), precioMin, precioMax, areaMin);
-            listaInmuebles.setAll(resultado);
-        } catch (Exception e) {
-            mostrarAlerta("Error", "Verifica los campos de búsqueda.");
-        }
     }
 }
