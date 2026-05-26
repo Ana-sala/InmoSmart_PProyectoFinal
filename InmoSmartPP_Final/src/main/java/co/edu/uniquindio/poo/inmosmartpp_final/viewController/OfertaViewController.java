@@ -37,15 +37,38 @@ public class OfertaViewController {
     }
 
     private void initView() {
-        colCodigo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getCodigoOferta()));
-        colComprador.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getComprador().getNombre()));
-        colInmueble.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getInmueble().getCodigo()));
-        colValor.setCellValueFactory(c -> new SimpleStringProperty("$" + c.getValue().getValorOferta()));
-        colEstado.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getEstado().toString()));
+        colCodigo.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getCodigoOferta()));
+        colComprador.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getComprador().getNombre()));
+        colInmueble.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getInmueble().getCodigo()));
+        colValor.setCellValueFactory(c -> new SimpleStringProperty(
+                String.format("$%,.0f", c.getValue().getValorOferta())));
+        colEstado.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getEstado().toString()));
         tblOfertas.setItems(listaOfertas);
         listaOfertas.addAll(ofertaController.getOfertas());
         cmbComprador.setItems(FXCollections.observableArrayList(usuarioController.getCompradores()));
         cmbInmueble.setItems(FXCollections.observableArrayList(inmuebleController.getTodosInmuebles()));
+        cmbInmueble.setCellFactory(lv -> new ListCell<Inmueble>() {
+            @Override
+            protected void updateItem(Inmueble item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) setText(null);
+                else setText(item.getCodigo() + " - " + item.getTipo() + " en " + item.getCiudad() +
+                        " (" + String.format("$%,.0f", item.getPrecio()) + ")");
+            }
+        });
+        cmbInmueble.setButtonCell(new ListCell<Inmueble>() {
+            @Override
+            protected void updateItem(Inmueble item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) setText(null);
+                else setText(item.getCodigo() + " - " + item.getTipo() + " en " + item.getCiudad() +
+                        " (" + String.format("$%,.0f", item.getPrecio()) + ")");
+            }
+        });
         tblOfertas.getSelectionModel().selectedItemProperty().addListener((obs, old, n) -> {
             ofertaSeleccionada = n;
         });
@@ -53,12 +76,20 @@ public class OfertaViewController {
 
     @FXML void onRealizarOferta() {
         try {
+            String valorTexto = txtValor.getText().replace(".", "").replace(",", "");
             boolean ok = ofertaController.realizarOferta(txtCodigo.getText(),
                     cmbComprador.getValue(), cmbInmueble.getValue(),
-                    Double.parseDouble(txtValor.getText()));
-            if (ok) { listaOfertas.setAll(ofertaController.getOfertas()); limpiar(); mostrarAlerta("Éxito", "Oferta realizada."); }
-            else mostrarAlerta("Error", "No se pudo realizar la oferta.");
-        } catch (Exception e) { mostrarAlerta("Error", "Valor inválido."); }
+                    Double.parseDouble(valorTexto));
+            if (ok) {
+                listaOfertas.setAll(ofertaController.getOfertas());
+                limpiar();
+                mostrarAlerta("Exito", "Oferta realizada.");
+            } else {
+                mostrarAlerta("Error", "No se pudo realizar la oferta.");
+            }
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Valor invalido.");
+        }
     }
 
     @FXML void onAceptar() {
