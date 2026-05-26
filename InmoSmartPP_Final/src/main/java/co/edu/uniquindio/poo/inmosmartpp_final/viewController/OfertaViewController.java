@@ -94,16 +94,22 @@ public class OfertaViewController {
 
     @FXML void onAceptar() {
         if (ofertaSeleccionada == null || cmbTipoOp.getValue() == null) {
-            mostrarAlerta("Error", "Selecciona una oferta y el tipo de operación."); return;
+            mostrarAlerta("Error", "Selecciona una oferta y el tipo de operacion.");
+            return;
         }
         ofertaController.aceptarOferta(ofertaSeleccionada.getCodigoOferta(), cmbTipoOp.getValue());
         listaOfertas.setAll(ofertaController.getOfertas());
-        mostrarAlerta("Éxito", "Oferta aceptada y transacción registrada.");
+
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Alerta del Sistema");
-        alerta.setHeaderText("Oferta aceptada");
-        alerta.setContentText("Notificación: La oferta " + ofertaSeleccionada.getCodigoOferta() +
-                " fue aceptada. El inmueble ha cambiado de estado.");
+        alerta.setTitle("Alerta Automatica del Sistema");
+        alerta.setHeaderText("Oferta Aceptada");
+        alerta.setContentText(
+                "La oferta " + ofertaSeleccionada.getCodigoOferta() + " fue aceptada.\n" +
+                        "Inmueble: " + ofertaSeleccionada.getInmueble().getCodigo() + "\n" +
+                        "Comprador: " + ofertaSeleccionada.getComprador().getNombre() + "\n" +
+                        "Valor: " + String.format("$%,.0f", ofertaSeleccionada.getValorOferta()) + "\n\n" +
+                        "Notificacion enviada por: Correo / SMS / WhatsApp"
+        );
         alerta.show();
     }
 
