@@ -78,6 +78,39 @@ public class InmuebleViewController {
         }
     }
 
+    @FXML void onBuscar() {
+        try {
+            String minTexto = txtPrecioMin.getText().replace(".", "").replace(",", "");
+            String maxTexto = txtPrecioMax.getText().replace(".", "").replace(",", "");
+            String areaTexto = txtAreaMin.getText().replace(".", "").replace(",", "");
+
+            double precioMin = minTexto.isEmpty() ? 0 : Double.parseDouble(minTexto);
+            double precioMax = maxTexto.isEmpty() ? Double.MAX_VALUE : Double.parseDouble(maxTexto);
+            double areaMin = areaTexto.isEmpty() ? 0 : Double.parseDouble(areaTexto);
+
+            List<Inmueble> resultado = inmuebleController.buscarInmuebles(
+                    txtBuscarCiudad.getText(), cmbBuscarTipo.getValue(), precioMin, precioMax, areaMin);
+            listaInmuebles.setAll(resultado);
+
+            if (!resultado.isEmpty()) {
+                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                alerta.setTitle("Alerta Automatica del Sistema");
+                alerta.setHeaderText("Inmuebles Similares Encontrados");
+                alerta.setContentText(
+                        "Se encontraron " + resultado.size() + " inmueble(s) que coinciden con tu busqueda.\n\n" +
+                                "Ciudad: " + (txtBuscarCiudad.getText().isEmpty() ? "Cualquiera" : txtBuscarCiudad.getText()) + "\n" +
+                                "Tipo: " + (cmbBuscarTipo.getValue() == null ? "Cualquiera" : cmbBuscarTipo.getValue()) + "\n\n" +
+                                "Notificacion enviada por: Correo / SMS / WhatsApp"
+                );
+                alerta.show();
+            } else {
+                mostrarAlerta("Sin resultados", "No se encontraron inmuebles con esos filtros.");
+            }
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Verifica los campos de busqueda.");
+        }
+    }
+
 
     @FXML void onBuscar() {
         try {
