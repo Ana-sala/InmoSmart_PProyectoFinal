@@ -12,7 +12,9 @@ public class OfertaController {
 
     public boolean realizarOferta(String codigo, Comprador comprador,
                                   Inmueble inmueble, double valor) {
-        if (comprador == null || inmueble == null || valor <= 0) return false;
+        if (comprador == null || inmueble == null) return false;
+        if (valor <= 0) return false;
+        if (codigo.isEmpty()) return false;
         Oferta oferta = new Oferta(codigo, comprador, inmueble, valor);
         return inmoSmart.realizarOferta(oferta);
     }

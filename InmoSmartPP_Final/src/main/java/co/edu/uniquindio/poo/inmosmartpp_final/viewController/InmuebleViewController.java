@@ -71,15 +71,12 @@ public class InmuebleViewController {
                 limpiar();
                 mostrarAlerta("Exito", "Inmueble publicado.");
             } else {
-                mostrarAlerta("Error", "No se pudo publicar.");
+                mostrarAlerta("Error", "No se pudo publicar. Verifica que el precio y el area sean mayores a 0 y que el codigo no este duplicado.");
             }
         } catch (Exception e) {
-            mostrarAlerta("Error", "Verifica los campos numericos.");
+            mostrarAlerta("Error", "No se pudo publicar. Verifica que el precio y el area sean mayores a 0 y que el codigo no este duplicado.");
         }
     }
-
-
-
 
     @FXML void onBuscar() {
         try {
@@ -125,6 +122,10 @@ public class InmuebleViewController {
             String precioTexto = txtNuevoPrecio.getText().replace(".", "").replace(",", "");
             double nuevoPrecio = Double.parseDouble(precioTexto);
             double precioAnterior = seleccionado.getPrecio();
+            if (nuevoPrecio <= 0) {
+                mostrarAlerta("Error", "El precio debe ser mayor a 0.");
+                return;
+            }
             seleccionado.setPrecio(nuevoPrecio);
             listaInmuebles.setAll(inmuebleController.getTodosInmuebles());
 

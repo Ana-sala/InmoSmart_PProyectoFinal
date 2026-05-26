@@ -85,7 +85,7 @@ public class OfertaViewController {
                 limpiar();
                 mostrarAlerta("Exito", "Oferta realizada.");
             } else {
-                mostrarAlerta("Error", "No se pudo realizar la oferta.");
+                mostrarAlerta("Error", "No se pudo realizar la oferta. Verifica que el valor sea mayor a 0 y que el inmueble este disponible.");
             }
         } catch (Exception e) {
             mostrarAlerta("Error", "Valor invalido.");

@@ -122,18 +122,26 @@ public abstract class Usuario {
      */
     public String getRango() {
 
+        // Si los puntos son menores o iguales a 100
+        // el usuario es Principiante
         if (puntosReputacion <= 100) {
 
             return "Principiante";
 
+            // Si los puntos son menores o iguales a 500
+            // el usuario es Inversionista
         } else if (puntosReputacion <= 500) {
 
             return "Inversionista";
 
+            // Si los puntos son menores o iguales a 2000
+            // el usuario es Experto Inmobiliario
         } else if (puntosReputacion <= 2000) {
 
             return "Experto Inmobiliario";
 
+            // Si supera los 2000 puntos
+            // el usuario es Magnate Inmobiliario
         } else {
 
             return "Magnate Inmobiliario";
