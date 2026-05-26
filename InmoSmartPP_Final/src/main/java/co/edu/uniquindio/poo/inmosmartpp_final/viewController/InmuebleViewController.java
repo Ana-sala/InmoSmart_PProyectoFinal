@@ -23,7 +23,7 @@ public class InmuebleViewController {
     @FXML private ComboBox<Vendedor> cmbVendedor;
     @FXML private TableView<Inmueble> tblInmuebles;
     @FXML private TableColumn<Inmueble, String> colCodigo, colTipo, colCiudad, colPrecio, colEstado, colArea;
-
+    @FXML private TextField txtNuevoPrecio;
     @FXML private TextField txtBuscarCiudad, txtPrecioMin, txtPrecioMax, txtAreaMin;
     @FXML private ComboBox<TipoInmueble> cmbBuscarTipo;
 
@@ -78,21 +78,33 @@ public class InmuebleViewController {
         }
     }
 
-    @FXML void onBuscar() {
+
+    @FXML void onActualizarPrecio() {
+        Inmueble seleccionado = tblInmuebles.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            mostrarAlerta("Error", "Selecciona un inmueble de la tabla.");
+            return;
+        }
         try {
-            String minTexto = txtPrecioMin.getText().replace(".", "").replace(",", "");
-            String maxTexto = txtPrecioMax.getText().replace(".", "").replace(",", "");
-            String areaTexto = txtAreaMin.getText().replace(".", "").replace(",", "");
+            String precioTexto = txtNuevoPrecio.getText().replace(".", "").replace(",", "");
+            double nuevoPrecio = Double.parseDouble(precioTexto);
+            double precioAnterior = seleccionado.getPrecio();
+            seleccionado.setPrecio(nuevoPrecio);
+            listaInmuebles.setAll(inmuebleController.getTodosInmuebles());
 
-            double precioMin = minTexto.isEmpty() ? 0 : Double.parseDouble(minTexto);
-            double precioMax = maxTexto.isEmpty() ? Double.MAX_VALUE : Double.parseDouble(maxTexto);
-            double areaMin = areaTexto.isEmpty() ? 0 : Double.parseDouble(areaTexto);
-
-            List<Inmueble> resultado = inmuebleController.buscarInmuebles(
-                    txtBuscarCiudad.getText(), cmbBuscarTipo.getValue(), precioMin, precioMax, areaMin);
-            listaInmuebles.setAll(resultado);
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Alerta Automatica del Sistema");
+            alerta.setHeaderText("Cambio de Precio Detectado");
+            alerta.setContentText(
+                    "El inmueble " + seleccionado.getCodigo() + " cambio de precio.\n" +
+                            "Precio anterior: " + String.format("$%,.0f", precioAnterior) + "\n" +
+                            "Precio nuevo: " + String.format("$%,.0f", nuevoPrecio) + "\n\n" +
+                            "Notificacion enviada por: Correo / SMS / WhatsApp"
+            );
+            alerta.show();
+            txtNuevoPrecio.clear();
         } catch (Exception e) {
-            mostrarAlerta("Error", "Verifica los campos de busqueda.");
+            mostrarAlerta("Error", "Ingresa un precio valido.");
         }
     }
 
