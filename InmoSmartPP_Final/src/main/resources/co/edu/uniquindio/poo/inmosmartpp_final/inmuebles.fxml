@@ -28,9 +28,12 @@
                 <ComboBox fx:id="cmbVendedor" GridPane.rowIndex="6" GridPane.columnIndex="1" prefWidth="200"/>
                 <Label text="Descripción:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
                 <TextField fx:id="txtDescripcion" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                <Label text="Nuevo precio:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtNuevoPrecio" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
             </GridPane>
             <HBox spacing="10">
                 <Button text="Publicar" onAction="#onPublicar"/>
+                <Button text="Actualizar precio" onAction="#onActualizarPrecio"/>
                 <Button text="Limpiar" onAction="#onLimpiar"/>
                 <Button text="&lt;- Volver" onAction="#onVolver"/>
             </HBox>
